@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miss IT — IT Education for Grade 6–11</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0a7c5c;
+    --teal-dark: #065a42;
+    --teal-mid: #13a87a;
+    --teal-light: #d6f5ea;
+    --teal-xlight: #f0fdf8;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --white: #ffffff;
+    --off-white: #f9fafb;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--gray-900);
+    line-height: 1.6;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--teal-dark);
+    color: var(--teal-light);
+    padding: 8px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .top-bar-contact { display: flex; gap: 20px; align-items: center; }
+  .top-bar-contact a { color: var(--teal-light); text-decoration: none; opacity: 0.85; }
+  .top-bar-contact a:hover { opacity: 1; }
+
+  .lang-switcher { display: flex; gap: 6px; }
+  .lang-btn {
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    font-family: var(--font-body);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn.active, .lang-btn:hover {
+    background: var(--teal-mid);
+    color: white;
+    border-color: var(--teal-mid);
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+  .nav-brand {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+  }
+  .nav-brand span {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--gray-400);
+    display: block;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: -4px;
+  }
+  .nav-links { display: flex; gap: 2px; align-items: center; }
+  .nav-link {
+    padding: 8px 14px;
+    border: none;
+    background: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--teal-xlight); color: var(--teal); }
+  .nav-link.active { background: var(--teal-light); color: var(--teal-dark); font-weight: 500; }
+  .nav-cta {
+    padding: 9px 20px;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--teal-dark); }
+
+  /* hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--gray-700); border-radius: 2px; transition: all 0.2s; display: block; }
+  .mobile-menu { display: none; flex-direction: column; gap: 4px; padding: 12px 16px 16px; border-top: 1px solid var(--gray-200); background: white; }
+  .mobile-menu.open { display: flex; }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, var(--teal-mid) 100%);
+    padding: 80px 24px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: 40%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .hero-avatar-wrap {
+    flex-shrink: 0;
+  }
+  .hero-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 3px solid rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 40px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .hero-text { flex: 1; min-width: 260px; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    color: white;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: #7ff3c8; }
+  .hero-tagline {
+    color: rgba(255,255,255,0.8);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-white {
+    padding: 12px 24px;
+    background: white;
+    color: var(--teal-dark);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-white:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .btn-ghost {
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
+
+  /* hero stats */
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    flex-wrap: wrap;
+  }
+  .stat-item { color: white; }
+  .stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: #7ff3c8; display: block; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; margin-top: 2px; }
+
+  /* ── SECTION LAYOUT ── */
+  section { padding: 72px 0; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-tag {
+    display: inline-block;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 600;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    color: var(--gray-500);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── FEATURE CARDS ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .feature-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    border: 1px solid var(--gray-200);
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--teal-light); }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-mid));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 48px; height: 48px;
+    background: var(--teal-xlight);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 { font-size: 16px; font-weight: 500; color: var(--gray-900); margin-bottom: 8px; }
+  .feature-card p { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+
+  /* ── TIPS FEED ── */
+  .tips-feed { background: var(--gray-50); }
+  .tips-list { display: grid; gap: 16px; }
+  .tip-post {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--teal);
+    transition: box-shadow 0.18s;
+  }
+  .tip-post:hover { box-shadow: var(--shadow-sm); }
+  .tip-meta { font-size: 11px; color: var(--gray-400); margin-bottom: 6px; letter-spacing: 0.02em; }
+  .tip-post p { font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 8px; }
+  .tip-tag {
+    display: inline-block;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── ABOUT PAGE ── */
+  .about-hero {
+    background: var(--teal-xlight);
+    padding: 64px 0;
+    border-bottom: 1px solid var(--teal-light);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media(max-width:700px){ .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 280px;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 64px;
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+  }
+  .about-info h1 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .about-info .role { color: var(--teal); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px; }
+  .about-info p { color: var(--gray-600, #475569); font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+
+  .creds-list { list-style: none; margin: 24px 0; }
+  .creds-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+  .creds-list li:last-child { border-bottom: none; }
+  .cred-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .mission-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .mission-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    border: 1px solid var(--gray-200);
+  }
+  .mission-card.accent { background: var(--teal); color: white; border-color: var(--teal); }
+  .mission-card.accent h3 { color: white; }
+  .mission-card.accent p { color: rgba(255,255,255,0.85); }
+  .mission-card h3 { font-size: 17px; font-weight: 500; color: var(--gray-900); margin-bottom: 12px; }
+  .mission-card p { font-size: 14px; color: var(--gray-500); line-height: 1.7; }
+
+  blockquote {
+    background: var(--teal-xlight);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--teal-dark);
+    line-height: 1.6;
+  }
+  blockquote cite { font-family: var(--font-body); font-style: normal; font-size: 13px; color: var(--teal-mid); display: block; margin-top: 10px; font-weight: 500; }
+
+  /* ── CLASSES PAGE ── */
+  .classes-hero { background: linear-gradient(135deg, var(--teal-xlight), white); padding: 48px 0; border-bottom: 1px solid var(--gray-200); }
+  .classes-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .medium-bar { display: flex; gap: 10px; margin: 24px 0; flex-wrap: wrap; }
+  .med-pill {
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--gray-300);
+    background: white;
+    color: var(--gray-500);
+    transition: all 0.18s;
+  }
+  .med-pill.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+  .grade-nav { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .grade-tab {
+    padding: 9px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    border: 1px solid var(--gray-200);
+    background: white;
+    color: var(--gray-500);
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.18s;
+  }
+  .grade-tab.active { background: var(--teal-dark); color: white; border-color: var(--teal-dark); }
+  .grade-tab:hover:not(.active) { border-color: var(--teal); color: var(--teal); }
+
+  .grade-panel { display: none; animation: fadeIn 0.2s ease; }
+  .grade-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .panel-header { margin-bottom: 24px; }
+  .panel-header h2 { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
+  .panel-header p { color: var(--gray-500); font-size: 14px; line-height: 1.7; }
+
+  .topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .topic-chip {
+    background: var(--teal-xlight);
+    border: 1px solid var(--teal-light);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+  }
+  .topic-chip strong { font-size: 13px; color: var(--teal-dark); display: block; margin-bottom: 4px; }
+  .topic-chip span { font-size: 12px; color: var(--gray-500); line-height: 1.4; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: white; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  thead th { background: var(--teal); color: white; padding: 12px 16px; text-align: left; font-weight: 500; font-size: 13px; letter-spacing: 0.02em; }
+  tbody td { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--teal-xlight); }
+
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .badge-green { background: #d1fae5; color: #065f46; }
+  .badge-amber { background: var(--amber-light); color: #92400e; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+
+  /* ── INQUIRY FORM ── */
+  .form-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 28px;
+    max-width: 560px;
+    box-shadow: var(--shadow-sm);
+  }
+  .form-card h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--gray-900); margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:500px){ .form-row { grid-template-columns: 1fr; } }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 12px; font-weight: 500; color: var(--gray-500); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--teal); background: white; }
+  textarea { resize: vertical; min-height: 90px; }
+  .btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+    margin-top: 4px;
+  }
+  .btn-submit:hover { background: var(--teal-dark); }
+
+  /* ── IT TIPS PAGE ── */
+  .tips-page-header { background: linear-gradient(135deg, var(--teal-xlight), white); padding: 48px 0; border-bottom: 1px solid var(--gray-200); }
+  .cat-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .cat-btn {
+    padding: 7px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    border: 1px solid var(--gray-200);
+    background: white;
+    color: var(--gray-500);
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.18s;
+  }
+  .cat-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
+  .cat-btn:hover:not(.active) { border-color: var(--teal); color: var(--teal); }
+
+  .tips-vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .vault-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 24px;
+    transition: all 0.2s;
+  }
+  .vault-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .vault-cat {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .vault-card h4 { font-size: 16px; font-weight: 500; color: var(--gray-900); margin-bottom: 8px; }
+  .vault-card p { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+
+  .download-banner {
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+    border-radius: var(--radius-xl);
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+  .download-banner h3 { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: white; margin-bottom: 6px; }
+  .download-banner p { color: rgba(255,255,255,0.75); font-size: 14px; }
+
+  /* ── CONTACT PAGE ── */
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+  @media(max-width:720px){ .contact-grid { grid-template-columns: 1fr; } }
+
+  .social-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .social-card h3 { font-size: 16px; font-weight: 500; color: var(--gray-900); margin-bottom: 16px; }
+  .social-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+    background: white;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-700);
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+    transition: all 0.18s;
+  }
+  .social-btn:last-child { margin-bottom: 0; }
+  .social-btn:hover { background: var(--teal-xlight); border-color: var(--teal-light); color: var(--teal-dark); }
+  .social-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .si-fb { background: #e7f0ff; }
+  .si-wa { background: #d1f7e4; }
+  .si-yt { background: #fee2e2; }
+
+  .map-card {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 0;
+    overflow: hidden;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+  }
+  .map-visual {
+    background: linear-gradient(135deg, var(--teal-light), var(--teal-xlight));
+    flex: 1;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+  .map-info { padding: 16px 20px; }
+  .map-info strong { display: block; font-size: 14px; color: var(--gray-900); margin-bottom: 2px; }
+  .map-info span { font-size: 12px; color: var(--gray-400); }
+
+  /* ── INFO PILLS ── */
+  .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 13px;
+    background: var(--gray-100);
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--gray-600, #475569);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray-900);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  @media(max-width:680px){ .footer-inner { grid-template-columns: 1fr; gap: 24px; } }
+  .footer-brand { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: white; margin-bottom: 8px; }
+  .footer-brand span { font-family: var(--font-body); font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.4); display: block; letter-spacing: 0.08em; text-transform: uppercase; }
+  footer p { font-size: 13px; line-height: 1.7; }
+  .footer-col h4 { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+  .footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 10px; cursor: pointer; transition: color 0.15s; }
+  .footer-link:hover { color: white; }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; flex-wrap: wrap; gap: 10px; }
+
+  /* ── SUCCESS TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--teal-dark);
+    color: white;
+    padding: 14px 22px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+    max-width: 320px;
+  }
+  .toast.show { transform: none; opacity: 1; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px){
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 52px 24px 60px; }
+    .hero-avatar { width: 100px; height: 100px; font-size: 28px; }
+    .hero-stats { gap: 20px; }
+    section { padding: 52px 0; }
+  }
+  @media(max-width:480px){
+    .top-bar { font-size: 11px; padding: 6px 14px; }
+    .hero-btns { flex-direction: column; }
+    .btn-white, .btn-ghost { width: 100%; justify-content: center; }
+  }
+
+  /* scroll fade */
+  .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+  .fade-up.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-contact">
+    <span>📍 <span id="tb-loc">Galle, Sri Lanka</span></span>
+    <a href="#">📘 <span id="tb-fb">Facebook</span></a>
+    <a href="#">📱 <span id="tb-wa">WhatsApp</span></a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('si')">සිංහල</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="showPage('home')">
+      Miss IT
+      <span id="nav-sub">IT Education · Grade 6–11</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('home')" id="nl-home">Home</button>
+      <button class="nav-link" onclick="showPage('about')" id="nl-about">About</button>
+      <button class="nav-link" onclick="showPage('classes')" id="nl-classes">Classes</button>
+      <button class="nav-link" onclick="showPage('tips')" id="nl-tips">IT Tips</button>
+      <button class="nav-link" onclick="showPage('contact')" id="nl-contact">Contact</button>
+    </div>
+    <button class="nav-cta" onclick="showPage('contact')" id="nl-cta">Register Now</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="nav-link" onclick="showPage('home');toggleMenu()" id="ml-home">Home</button>
+    <button class="nav-link" onclick="showPage('about');toggleMenu()" id="ml-about">About</button>
+    <button class="nav-link" onclick="showPage('classes');toggleMenu()" id="ml-classes">Classes</button>
+    <button class="nav-link" onclick="showPage('tips');toggleMenu()" id="ml-tips">IT Tips</button>
+    <button class="nav-link" onclick="showPage('contact');toggleMenu()" id="ml-contact">Contact</button>
+  </div>
+</nav>
+
+<!-- ════════════ HOME PAGE ════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-inner container">
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar">SM</div>
+      </div>
+      <div class="hero-text">
+        <div class="hero-badge">✦ <span id="h-badge">BSc IT (Hons) — University of Sri Jayewardenepura</span></div>
+        <h1 id="h-title">Mastering IT<br>from Grade <em>6 to 11</em></h1>
+        <p class="hero-tagline" id="h-tag">Quality IT education in both English and Sinhala medium. Focused exam prep, practical skills, and free resources for every student.</p>
+        <div class="hero-btns">
+          <button class="btn-white" onclick="showPage('classes')" id="h-btn1">Join a Class</button>
+          <button class="btn-ghost" onclick="showPage('contact')" id="h-btn2">Individual Sessions</button>
+          <button class="btn-ghost" onclick="showPage('tips')" id="h-btn3">Free IT Tips</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><span class="stat-num">6–11</span><span class="stat-label" id="hs-grade">Grades Covered</span></div>
+          <div class="stat-item"><span class="stat-num">2</span><span class="stat-label" id="hs-lang">Languages</span></div>
+          <div class="stat-item"><span class="stat-num">100+</span><span class="stat-label" id="hs-students">Students Taught</span></div>
+          <div class="stat-item"><span class="stat-num">O/L</span><span class="stat-label" id="hs-exam">Exam Focused</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" id="fea-tag">Why Miss IT?</div>
+        <h2 class="section-title" id="fea-title">Everything you need to succeed in IT</h2>
+        <p class="section-sub" id="fea-sub">From foundational concepts to exam-ready preparation — in the language that works best for you.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up"><div class="feature-icon">🎓</div><h3 id="fc1h">Qualified Expert</h3><p id="fc1p">BSc IT (Honours) from University of Sri Jayewardenepura — bringing academic rigour to every lesson.</p></div>
+        <div class="feature-card fade-up"><div class="feature-icon">🌐</div><h3 id="fc2h">Bilingual Teaching</h3><p id="fc2p">Full lessons in both English and Sinhala medium. Every student learns in their most comfortable language.</p></div>
+        <div class="feature-card fade-up"><div class="feature-icon">📋</div><h3 id="fc3h">O/L Exam Prep</h3><p id="fc3p">Structured exam preparation with past papers, model answers, and topic-by-topic revision for Grade 10–11.</p></div>
+        <div class="feature-card fade-up"><div class="feature-icon">📱</div><h3 id="fc4h">Mobile Friendly</h3><p id="fc4p">Access class notes, free tips, and downloadable resources anytime from your phone or laptop.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tips-feed">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" id="tf-tag">From Miss IT</div>
+        <h2 class="section-title" id="tf-title">Latest IT Tips</h2>
+        <p class="section-sub" id="tf-sub">Daily tips and tricks shared on the Miss IT Facebook page — now organized for easy reading.</p>
+      </div>
+      <div class="tips-list">
+        <div class="tip-post fade-up"><div class="tip-meta">Miss IT · 2 days ago</div><p id="tp-1">💡 Quick Tip: The shortcut Ctrl+Z is your best friend! It undoes any mistake in almost every program. Save it, use it, love it!</p><span class="tip-tag">#ProgrammingBasics</span></div>
+        <div class="tip-post fade-up"><div class="tip-meta">Miss IT · 4 days ago</div><p id="tp-2">📂 Do you know the difference between RAM and ROM? RAM is temporary memory (like your desk), ROM is permanent storage (like a filing cabinet). More in next week's class!</p><span class="tip-tag">#Hardware</span></div>
+        <div class="tip-post fade-up"><div class="tip-meta">Miss IT · 1 week ago</div><p id="tp-3">🔒 Internet Safety Reminder: Never share your passwords with anyone — not even your best friend. Use a mix of letters, numbers, and symbols for a strong password!</p><span class="tip-tag">#InternetSafety</span></div>
+      </div>
+      <div style="text-align:center;margin-top:32px">
+        <button class="btn-white" style="background:var(--teal);color:white;" onclick="showPage('tips')" id="tf-more">View All IT Tips →</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ ABOUT PAGE ════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="container">
+      <div class="about-grid">
+        <div><div class="about-photo">SM</div></div>
+        <div class="about-info">
+          <h1>Shammi</h1>
+          <div class="role" id="ab-role">Founder · Miss IT · IT Educator</div>
+          <p id="ab-p1">Shammi is a qualified IT educator holding a BSc IT (Honours) from the University of Sri Jayewardenepura, Sri Lanka — one of the country's leading universities for technology education.</p>
+          <p id="ab-p2">With a passion for making IT accessible to every student regardless of language, she founded Miss IT to bridge the gap between complex syllabus content and real understanding.</p>
+          <div class="pill-row">
+            <span class="pill">🎓 BSc IT (Hons)</span>
+            <span class="pill">🌐 English & Sinhala</span>
+            <span class="pill">📚 Grade 6–11</span>
+          </div>
+          <ul class="creds-list">
+            <li><span class="cred-icon">🏛</span><span id="cr1">BSc IT (Honours) — University of Sri Jayewardenepura, Sri Lanka</span></li>
+            <li><span class="cred-icon">👩‍🏫</span><span id="cr2">Specialist in O/L ICT preparation (Grade 10–11) and junior IT (Grade 6–9)</span></li>
+            <li><span class="cred-icon">🌐</span><span id="cr3">Experienced teaching in both English medium and Sinhala medium</span></li>
+            <li><span class="cred-icon">📱</span><span id="cr4">Active IT educator on social media — thousands of student followers</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" id="ab-phi-tag">Teaching Philosophy</div>
+        <h2 class="section-title" id="ab-phi-title">IT for Every Student, In Every Language</h2>
+      </div>
+      <blockquote id="ab-quote">"I want my students to walk into their IT exam with confidence — not just knowledge, but the ability to think, apply, and succeed. Whether you learn best in English or Sinhala, Miss IT has a class for you."<cite>— Shammi, Miss IT</cite></blockquote>
+      <div class="mission-cards">
+        <div class="mission-card"><h3 id="mc1h">The Problem</h3><p id="mc1p">Most IT resources in Sri Lanka are only in English, leaving Sinhala-medium students at a disadvantage. Textbooks are often dense and disconnected from real-world application.</p></div>
+        <div class="mission-card accent"><h3 id="mc2h">The Mission</h3><p id="mc2p">Miss IT exists to give every Grade 6–11 student equal access to quality IT guidance — exam prep, practical skills, and digital literacy in their own language.</p></div>
+        <div class="mission-card"><h3 id="mc3h">The Approach</h3><p id="mc3p">Real-life examples, structured revision, and a supportive learning environment. Complex topics become simple when explained the right way in the right language.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ CLASSES PAGE ════════════ -->
+<div class="page" id="page-classes">
+  <div class="classes-hero">
+    <div class="container">
+      <div class="section-tag" id="cl-tag">Enroll Today</div>
+      <h1 id="cl-title">Classes & Courses</h1>
+      <p style="color:var(--gray-500);font-size:15px;margin:8px 0 20px;max-width:520px" id="cl-sub">Choose your grade level and preferred medium. Group classes and individual sessions available.</p>
+      <div class="medium-bar">
+        <button class="med-pill active" onclick="setMedium('en',this)" id="mp-en">English Medium</button>
+        <button class="med-pill" onclick="setMedium('si',this)" id="mp-si">සිංහල මාධ්‍යය</button>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding-top:48px">
+    <div class="container">
+      <div class="grade-nav">
+        <button class="grade-tab active" onclick="setGrade('g69',this)" id="gt-69">Grade 6–9</button>
+        <button class="grade-tab" onclick="setGrade('gol',this)" id="gt-ol">O/L Grade 10–11</button>
+        <button class="grade-tab" onclick="setGrade('gindi',this)" id="gt-indi">Individual (1-on-1)</button>
+      </div>
+
+      <!-- Grade 6–9 -->
+      <div class="grade-panel active" id="panel-g69">
+        <div class="panel-header">
+          <h2 id="g69-h">Foundational IT — Grade 6 to 9</h2>
+          <p id="g69-p">Building strong foundations: computer hardware, software, internet basics, MS Office, and introductory programming concepts. Perfect for students starting their IT journey.</p>
+        </div>
+        <div class="topics-grid">
+          <div class="topic-chip"><strong id="t69-1">Computer Basics</strong><span id="t69-1d">Hardware, software, input/output devices, operating systems</span></div>
+          <div class="topic-chip"><strong id="t69-2">MS Office Suite</strong><span id="t69-2d">Word, Excel, PowerPoint — practical skills for school</span></div>
+          <div class="topic-chip"><strong id="t69-3">Internet & Safety</strong><span id="t69-3d">Browsing, email, online safety, responsible digital use</span></div>
+          <div class="topic-chip"><strong id="t69-4">Intro Programming</strong><span id="t69-4d">Basic algorithms, flowcharts, and problem-solving logic</span></div>
+        </div>
+        <table style="margin-bottom:24px">
+          <thead><tr><th id="sh-d">Day</th><th id="sh-t">Time</th><th id="sh-m">Medium</th><th id="sh-s">Spots Left</th><th id="sh-a">Action</th></tr></thead>
+          <tbody>
+            <tr><td id="sd-1">Saturday</td><td>9:00 AM – 10:30 AM</td><td>English</td><td><span class="badge badge-green">5 left</span></td><td><button class="nav-cta" style="padding:6px 14px;font-size:13px" onclick="showPage('contact')">Enroll</button></td></tr>
+            <tr><td id="sd-2">Sunday</td><td>10:30 AM – 12:00 PM</td><td>Sinhala</td><td><span class="badge badge-amber">2 left</span></td><td><button class="nav-cta" style="padding:6px 14px;font-size:13px" onclick="showPage('contact')">Enroll</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- O/L -->
+      <div class="grade-panel" id="panel-gol">
+        <div class="panel-header">
+          <h2 id="gol-h">O/L Exam Preparation — Grade 10 & 11</h2>
+          <p id="gol-p">Focused exam preparation covering the complete O/L ICT syllabus. Includes past paper discussions, model answers, and exam technique strategies to maximize your grade.</p>
+        </div>
+        <div class="topics-grid">
+          <div class="topic-chip"><strong id="tol-1">Data Representation</strong><span id="tol-1d">Number systems, binary, hexadecimal, data types</span></div>
+          <div class="topic-chip"><strong id="tol-2">Computer Networks</strong><span id="tol-2d">LAN, WAN, internet, protocols, network topologies</span></div>
+          <div class="topic-chip"><strong id="tol-3">Programming</strong><span id="tol-3d">Algorithms, pseudocode, flowcharts, basic coding</span></div>
+          <div class="topic-chip"><strong id="tol-4">Past Papers</strong><span id="tol-4d">Detailed walkthrough of past O/L ICT papers</span></div>
+        </div>
+        <table style="margin-bottom:24px">
+          <thead><tr><th>Day</th><th>Time</th><th>Medium</th><th>Spots Left</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Wednesday</td><td>4:00 PM – 6:00 PM</td><td>English</td><td><span class="badge badge-green">8 left</span></td><td><button class="nav-cta" style="padding:6px 14px;font-size:13px" onclick="showPage('contact')">Enroll</button></td></tr>
+            <tr><td>Friday</td><td>5:00 PM – 7:00 PM</td><td>Sinhala</td><td><span class="badge badge-green">6 left</span></td><td><button class="nav-cta" style="padding:6px 14px;font-size:13px" onclick="showPage('contact')">Enroll</button></td></tr>
+            <tr><td>Saturday</td><td>2:00 PM – 4:00 PM</td><td>English</td><td><span class="badge badge-red">Full</span></td><td><button class="nav-cta" style="padding:6px 14px;font-size:13px;opacity:0.5;cursor:not-allowed">Full</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Individual -->
+      <div class="grade-panel" id="panel-gindi">
+        <div class="panel-header">
+          <h2 id="gindi-h">Individual (1-on-1) Sessions</h2>
+          <p id="gindi-p">Personalized sessions tailored to your pace, grade, and specific needs. Ideal for extra help, fast-tracking, or exam revision. Fill in the form below to inquire.</p>
+        </div>
+        <div class="form-card">
+          <h3 id="if-title">Book an Individual Session</h3>
+          <div class="form-row">
+            <div class="form-group"><label id="if-l1">Full Name</label><input type="text" placeholder="Your name"></div>
+            <div class="form-group"><label id="if-l2">Grade</label><select><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label id="if-l3">WhatsApp Number</label><input type="text" placeholder="+94 7X XXX XXXX"></div>
+            <div class="form-group"><label id="if-l4">Preferred Medium</label><select><option>English</option><option>Sinhala</option></select></div>
+          </div>
+          <div class="form-group"><label id="if-l5">Topic / Focus Area</label><textarea placeholder="e.g. Need help with data representation for O/L"></textarea></div>
+          <button class="btn-submit" onclick="submitForm(this)" id="if-btn">Send Inquiry</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ IT TIPS PAGE ════════════ -->
+<div class="page" id="page-tips">
+  <div class="tips-page-header">
+    <div class="container">
+      <div class="section-tag" id="vt-tag">Free Resources</div>
+      <h1 class="section-title" style="text-align:left;margin-bottom:8px" id="vt-title">IT Tips Vault</h1>
+      <p style="color:var(--gray-500);font-size:15px;max-width:500px" id="vt-sub">All the IT tips and tricks Shammi shares on Facebook — organized, searchable, and downloadable.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="cat-bar">
+        <button class="cat-btn active" onclick="filterVault('all',this)" id="cb-all">All Tips</button>
+        <button class="cat-btn" onclick="filterVault('prog',this)" id="cb-prog">Programming</button>
+        <button class="cat-btn" onclick="filterVault('hw',this)" id="cb-hw">Hardware</button>
+        <button class="cat-btn" onclick="filterVault('net',this)" id="cb-net">Internet Safety</button>
+        <button class="cat-btn" onclick="filterVault('exam',this)" id="cb-exam">Exam Tips</button>
+      </div>
+      <div class="tips-vault-grid" id="vault-grid">
+        <div class="vault-card" data-cat="prog"><div class="vault-cat">Programming Basics</div><h4 id="v1h">What is an Algorithm?</h4><p id="v1p">An algorithm is a step-by-step set of instructions to solve a problem — like a recipe for the computer to follow.</p></div>
+        <div class="vault-card" data-cat="hw"><div class="vault-cat">Hardware</div><h4 id="v2h">RAM vs ROM</h4><p id="v2p">RAM stores temporary data while your computer runs. ROM stores permanent data that never changes, even when powered off.</p></div>
+        <div class="vault-card" data-cat="net"><div class="vault-cat">Internet Safety</div><h4 id="v3h">Strong Password Rules</h4><p id="v3p">Use 8+ characters with uppercase, lowercase, numbers and symbols. Never use the same password on two different websites!</p></div>
+        <div class="vault-card" data-cat="exam"><div class="vault-cat">Exam Tips</div><h4 id="v4h">Top 5 Keyboard Shortcuts</h4><p id="v4p">Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+Z (Undo), Ctrl+S (Save), Ctrl+P (Print). These appear on almost every exam!</p></div>
+        <div class="vault-card" data-cat="prog"><div class="vault-cat">Programming Basics</div><h4 id="v5h">What is a Variable?</h4><p id="v5p">A variable is like a labelled box that stores a value in a program. You can change what's inside the box at any time.</p></div>
+        <div class="vault-card" data-cat="hw"><div class="vault-cat">Hardware</div><h4 id="v6h">CPU vs GPU</h4><p id="v6p">The CPU is the brain of the computer — it handles all general processing. The GPU is specialized for graphics and display.</p></div>
+        <div class="vault-card" data-cat="exam"><div class="vault-cat">Exam Tips</div><h4 id="v7h">Read Questions Twice</h4><p id="v7p">In ICT exams, read each question twice before answering. Many marks are lost from misreading what is actually being asked.</p></div>
+        <div class="vault-card" data-cat="net"><div class="vault-cat">Internet Safety</div><h4 id="v8h">Phishing Attacks</h4><p id="v8p">If an email or message asks for your personal details or password, it is likely a phishing attempt. Never click suspicious links!</p></div>
+        <div class="vault-card" data-cat="prog"><div class="vault-cat">Programming Basics</div><h4 id="v9h">What is a Loop?</h4><p id="v9p">A loop repeats a set of instructions multiple times. For example: printing numbers 1 to 100 without writing 100 lines of code.</p></div>
+      </div>
+
+      <div class="download-banner">
+        <div>
+          <h3 id="db-h">Free Study Materials</h3>
+          <p id="db-p">PDF summaries, shortcut key cheat sheets, O/L past paper answer guides — all free for Miss IT students.</p>
+        </div>
+        <button class="btn-white" onclick="alert('PDF downloads coming soon! Follow the Miss IT Facebook page for updates.')" id="db-btn">Download Free PDFs</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ CONTACT PAGE ════════════ -->
+<div class="page" id="page-contact">
+  <section style="padding-top:56px">
+    <div class="container">
+      <div class="section-header" style="text-align:left;margin-bottom:40px">
+        <div class="section-tag" id="ct-tag">Get in Touch</div>
+        <h2 class="section-title" id="ct-title">Contact & Registration</h2>
+        <p class="section-sub" style="margin:0" id="ct-sub">Register for a new batch, book an individual session, or get in touch via social media.</p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="form-card" style="max-width:100%">
+            <h3 id="rf-title">New Student Registration</h3>
+            <div class="form-row">
+              <div class="form-group"><label id="rf-l1">Student Name</label><input type="text" placeholder="Full name"></div>
+              <div class="form-group"><label id="rf-l2">Grade</label><select><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label id="rf-l3">Parent's Contact</label><input type="text" placeholder="+94 7X XXX XXXX"></div>
+              <div class="form-group"><label id="rf-l4">Preferred Medium</label><select><option>English</option><option>Sinhala</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label id="rf-l5">Class Type</label><select><option>Group Class</option><option>Individual Session</option></select></div>
+              <div class="form-group"><label id="rf-l6">Email (optional)</label><input type="email" placeholder="student@email.com"></div>
+            </div>
+            <div class="form-group"><label id="rf-l7">Message</label><textarea placeholder="Any questions or special requirements?"></textarea></div>
+            <button class="btn-submit" onclick="submitForm(this)" id="rf-btn">Register Now</button>
+          </div>
+        </div>
+        <div>
+          <div class="social-card">
+            <h3 id="sc-title">Find Miss IT Online</h3>
+            <button class="social-btn"><div class="social-icon si-fb">📘</div><div><strong style="display:block;font-size:14px;font-weight:500">Facebook</strong><span style="font-size:12px;color:var(--gray-400)">Miss IT Page — Daily tips & updates</span></div></button>
+            <button class="social-btn"><div class="social-icon si-wa">📱</div><div><strong style="display:block;font-size:14px;font-weight:500">WhatsApp</strong><span style="font-size:12px;color:var(--gray-400)">Chat directly with Miss IT</span></div></button>
+            <button class="social-btn"><div class="social-icon si-yt">▶</div><div><strong style="display:block;font-size:14px;font-weight:500">YouTube</strong><span style="font-size:12px;color:var(--gray-400)">Video tutorials & past paper reviews</span></div></button>
+          </div>
+          <div class="map-card">
+            <div class="map-visual">📍</div>
+            <div class="map-info">
+              <strong id="map-loc">Kandy, Central Province, Sri Lanka</strong>
+              <span id="map-sub">Online & In-Person Sessions Available</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Miss IT <span>IT Education · Sri Lanka</span></div>
+      <p id="ft-p">Quality IT education for Grade 6–11 students across Sri Lanka. English and Sinhala medium classes available online and in-person.</p>
+    </div>
+    <div class="footer-col">
+      <h4 id="ft-h1">Quick Links</h4>
+      <a class="footer-link" onclick="showPage('home')" id="ft-l1">Home</a>
+      <a class="footer-link" onclick="showPage('about')" id="ft-l2">About Shammi</a>
+      <a class="footer-link" onclick="showPage('classes')" id="ft-l3">Classes & Courses</a>
+      <a class="footer-link" onclick="showPage('tips')" id="ft-l4">IT Tips Vault</a>
+      <a class="footer-link" onclick="showPage('contact')" id="ft-l5">Register Now</a>
+    </div>
+    <div class="footer-col">
+      <h4 id="ft-h2">Contact</h4>
+      <a class="footer-link">📘 Facebook: Miss IT</a>
+      <a class="footer-link">📱 WhatsApp</a>
+      <a class="footer-link">▶ YouTube</a>
+      <a class="footer-link">📍 Kandy, Sri Lanka</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="ft-copy">© 2025 Miss IT · All Rights Reserved</span>
+    <span id="ft-tagline">Empowering Students Through IT Education</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ <span id="toast-msg">Form submitted successfully! We'll be in touch soon.</span></div>
+
+<script>
+const T = {
+  en: {
+    'tb-loc':'Kandy, Sri Lanka','tb-fb':'Facebook','tb-wa':'WhatsApp',
+    'nav-sub':'IT Education · Grade 6–11','nl-home':'Home','nl-about':'About','nl-classes':'Classes','nl-tips':'IT Tips','nl-contact':'Contact','nl-cta':'Register Now',
+    'ml-home':'Home','ml-about':'About','ml-classes':'Classes','ml-tips':'IT Tips','ml-contact':'Contact',
+    'h-badge':'BSc IT (Hons) — University of Sri Jayewardenepura',
+    'h-title':'Mastering IT<br>from Grade <em>6 to 11</em>',
+    'h-tag':'Quality IT education in both English and Sinhala medium. Focused exam prep, practical skills, and free resources for every student.',
+    'h-btn1':'Join a Class','h-btn2':'Individual Sessions','h-btn3':'Free IT Tips',
+    'hs-grade':'Grades Covered','hs-lang':'Languages','hs-students':'Students Taught','hs-exam':'Exam Focused',
+    'fea-tag':'Why Miss IT?','fea-title':'Everything you need to succeed in IT','fea-sub':'From foundational concepts to exam-ready preparation — in the language that works best for you.',
+    'fc1h':'Qualified Expert','fc1p':'BSc IT (Honours) from University of Sri Jayewardenepura — bringing academic rigour to every lesson.',
+    'fc2h':'Bilingual Teaching','fc2p':'Full lessons in both English and Sinhala medium. Every student learns in their most comfortable language.',
+    'fc3h':'O/L Exam Prep','fc3p':'Structured exam preparation with past papers, model answers, and topic-by-topic revision for Grade 10–11.',
+    'fc4h':'Mobile Friendly','fc4p':'Access class notes, free tips, and downloadable resources anytime from your phone or laptop.',
+    'tf-tag':'From Miss IT','tf-title':'Latest IT Tips','tf-sub':'Daily tips and tricks shared on the Miss IT Facebook page — now organized for easy reading.',
+    'tp-1':'💡 Quick Tip: The shortcut Ctrl+Z is your best friend! It undoes any mistake in almost every program.',
+    'tp-2':'📂 Do you know the difference between RAM and ROM? RAM is temporary memory (like your desk), ROM is permanent storage (like a filing cabinet).',
+    'tp-3':'🔒 Internet Safety: Never share your passwords with anyone. Use a mix of letters, numbers, and symbols!',
+    'tf-more':'View All IT Tips →',
+    'ab-role':'Founder · Miss IT · IT Educator',
+    'ab-p1':'Shammi is a qualified IT educator holding a BSc IT (Honours) from the University of Sri Jayewardenepura, Sri Lanka — one of the country\'s leading universities for technology education.',
+    'ab-p2':'With a passion for making IT accessible to every student regardless of language, she founded Miss IT to bridge the gap between complex syllabus content and real understanding.',
+    'cr1':'BSc IT (Honours) — University of Sri Jayewardenepura, Sri Lanka','cr2':'Specialist in O/L ICT preparation (Grade 10–11) and junior IT (Grade 6–9)','cr3':'Experienced teaching in both English and Sinhala medium','cr4':'Active IT educator on social media — thousands of student followers',
+    'ab-phi-tag':'Teaching Philosophy','ab-phi-title':'IT for Every Student, In Every Language',
+    'ab-quote':'"I want my students to walk into their IT exam with confidence — not just knowledge, but the ability to think, apply, and succeed. Whether you learn best in English or Sinhala, Miss IT has a class for you."',
+    'mc1h':'The Problem','mc1p':'Most IT resources in Sri Lanka are only in English, leaving Sinhala-medium students at a disadvantage. Textbooks are often dense and disconnected from real-world application.',
+    'mc2h':'The Mission','mc2p':'Miss IT exists to give every Grade 6–11 student equal access to quality IT guidance — exam prep, practical skills, and digital literacy in their own language.',
+    'mc3h':'The Approach','mc3p':'Real-life examples, structured revision, and a supportive learning environment. Complex topics become simple when explained the right way.',
+    'cl-tag':'Enroll Today','cl-title':'Classes & Courses','cl-sub':'Choose your grade level and preferred medium. Group classes and individual sessions available.',
+    'mp-en':'English Medium','mp-si':'Sinhala Medium',
+    'gt-69':'Grade 6–9','gt-ol':'O/L Grade 10–11','gt-indi':'Individual (1-on-1)',
+    'g69-h':'Foundational IT — Grade 6 to 9','g69-p':'Building strong foundations: computer hardware, software, internet basics, MS Office, and introductory programming concepts.',
+    't69-1':'Computer Basics','t69-1d':'Hardware, software, input/output devices, operating systems',
+    't69-2':'MS Office Suite','t69-2d':'Word, Excel, PowerPoint — practical skills for school',
+    't69-3':'Internet & Safety','t69-3d':'Browsing, email, online safety, responsible digital use',
+    't69-4':'Intro Programming','t69-4d':'Basic algorithms, flowcharts, and problem-solving logic',
+    'sh-d':'Day','sh-t':'Time','sh-m':'Medium','sh-s':'Spots Left','sh-a':'Action',
+    'sd-1':'Saturday','sd-2':'Sunday',
+    'gol-h':'O/L Exam Preparation — Grade 10 & 11','gol-p':'Focused exam preparation covering the complete O/L ICT syllabus. Past paper discussions, model answers, and exam technique strategies.',
+    'tol-1':'Data Representation','tol-1d':'Number systems, binary, hexadecimal, data types',
+    'tol-2':'Computer Networks','tol-2d':'LAN, WAN, internet, protocols, network topologies',
+    'tol-3':'Programming','tol-3d':'Algorithms, pseudocode, flowcharts, basic coding',
+    'tol-4':'Past Papers','tol-4d':'Detailed walkthrough of past O/L ICT papers',
+    'gindi-h':'Individual (1-on-1) Sessions','gindi-p':'Personalized sessions tailored to your pace, grade, and specific needs. Ideal for extra help or fast-tracking exam revision.',
+    'if-title':'Book an Individual Session','if-l1':'Full Name','if-l2':'Grade','if-l3':'WhatsApp Number','if-l4':'Preferred Medium','if-l5':'Topic / Focus Area','if-btn':'Send Inquiry',
+    'vt-tag':'Free Resources','vt-title':'IT Tips Vault','vt-sub':'All the IT tips and tricks Shammi shares on Facebook — organized, searchable, and downloadable.',
+    'cb-all':'All Tips','cb-prog':'Programming','cb-hw':'Hardware','cb-net':'Internet Safety','cb-exam':'Exam Tips',
+    'v1h':'What is an Algorithm?','v1p':'An algorithm is a step-by-step set of instructions to solve a problem — like a recipe for the computer.',
+    'v2h':'RAM vs ROM','v2p':'RAM stores temporary data while your computer runs. ROM stores permanent data that never changes, even when powered off.',
+    'v3h':'Strong Password Rules','v3p':'Use 8+ characters with uppercase, lowercase, numbers and symbols. Never use the same password on two websites!',
+    'v4h':'Top 5 Keyboard Shortcuts','v4p':'Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+Z (Undo), Ctrl+S (Save), Ctrl+P (Print). These appear on almost every exam!',
+    'v5h':'What is a Variable?','v5p':'A variable is like a labelled box that stores a value in a program. You can change what\'s inside at any time.',
+    'v6h':'CPU vs GPU','v6p':'The CPU is the brain of the computer. The GPU is specialized for graphics and visual display processing.',
+    'v7h':'Read Questions Twice','v7p':'In ICT exams, read each question twice before answering. Many marks are lost from misreading what\'s being asked.',
+    'v8h':'Phishing Attacks','v8p':'If an email asks for your personal details or password, it is likely phishing. Never click suspicious links!',
+    'v9h':'What is a Loop?','v9p':'A loop repeats a set of instructions multiple times. Print numbers 1–100 without writing 100 lines of code!',
+    'db-h':'Free Study Materials','db-p':'PDF summaries, shortcut key cheat sheets, O/L past paper answer guides — all free for Miss IT students.','db-btn':'Download Free PDFs',
+    'ct-tag':'Get in Touch','ct-title':'Contact & Registration','ct-sub':'Register for a new batch, book an individual session, or get in touch via social media.',
+    'rf-title':'New Student Registration','rf-l1':'Student Name','rf-l2':'Grade','rf-l3':"Parent's Contact",'rf-l4':'Preferred Medium','rf-l5':'Class Type','rf-l6':'Email (optional)','rf-l7':'Message','rf-btn':'Register Now',
+    'sc-title':'Find Miss IT Online','map-loc':'Kandy, Central Province, Sri Lanka','map-sub':'Online & In-Person Sessions Available',
+    'ft-p':'Quality IT education for Grade 6–11 students across Sri Lanka. English and Sinhala medium classes available.',
+    'ft-h1':'Quick Links','ft-h2':'Contact','ft-l1':'Home','ft-l2':'About Shammi','ft-l3':'Classes & Courses','ft-l4':'IT Tips Vault','ft-l5':'Register Now',
+    'ft-copy':'© 2025 Miss IT · All Rights Reserved','ft-tagline':'Empowering Students Through IT Education',
+    'toast-msg':'Form submitted! We\'ll be in touch soon.'
+  },
+  si: {
+    'tb-loc':'මහනුවර, ශ්‍රී ලංකාව','tb-fb':'ෆේස්බුක්','tb-wa':'වට්සැප්',
+    'nav-sub':'IT අධ්‍යාපනය · 6–11 ශ්‍රේණිය','nl-home':'මුල් පිටුව','nl-about':'පිළිබඳ','nl-classes':'පන්ති','nl-tips':'IT උපදෙස්','nl-contact':'සම්බන්ධ වන්න','nl-cta':'ලියාපදිංචි වන්න',
+    'ml-home':'මුල් පිටුව','ml-about':'පිළිබඳ','ml-classes':'පන්ති','ml-tips':'IT උපදෙස්','ml-contact':'සම්බන්ධ වන්න',
+    'h-badge':'BSc IT (Hons) — ශ්‍රී ජයවර්ධනපුර විශ්වවිද්‍යාලය',
+    'h-title':'IT ප්‍රගුණ කරන්න<br>6 සිට <em>11 ශ්‍රේණිය</em> දක්වා',
+    'h-tag':'ඉංග්‍රීසි සහ සිංහල මාධ්‍ය දෙකෙහිම ගුණාත්මක IT අධ්‍යාපනය. O/L විභාග සූදානම, ප්‍රායෝගික කුසලතා සහ නොමිලේ සම්පත්.',
+    'h-btn1':'පන්තියකට එකතු වන්න','h-btn2':'තනි සැසි','h-btn3':'නොමිලේ IT උපදෙස්',
+    'hs-grade':'ශ්‍රේණි ආවරණය','hs-lang':'භාෂා','hs-students':'සිසුන් ඉගෙනගෙන ඇත','hs-exam':'විභාග අවධානය',
+    'fea-tag':'ඇයි Miss IT?','fea-title':'IT ජයගැනීමට ඔබට ඕනෑ සිල්ල','fea-sub':'පදනම් සංකල්ප සිට විභාග සූදානම දක්වා — ඔබට ගැලපෙන භාෂාවෙන්.',
+    'fc1h':'සුදුසුකම් ලත් විශේෂඥ','fc1p':'ශ්‍රී ජයවර්ධනපුර විශ්වවිද්‍යාලය BSc IT (Honours) — සෑම පාඩමකටම ශාස්ත්‍රීය ශ්‍රේෂ්ඨත්වය.',
+    'fc2h':'ද්විභාෂා ඉගැන්වීම','fc2p':'ඉංග්‍රීසි හා සිංහල මාධ්‍ය දෙකෙහිම සම්පූර්ණ පාඩම්. සෑම සිසුවෙකුම ඔවුන්ට ගැලපෙන භාෂාවෙන් ඉගෙනෙයි.',
+    'fc3h':'O/L විභාග සූදානම','fc3p':'O/L ICT සිලබස් සම්පූර්ණ ආවරණය. 10–11 ශ්‍රේණිය සඳහා පසු ප්‍රශ්න, ආදර්ශ පිළිතුරු.',
+    'fc4h':'ජංගම හිතකාමී','fc4p':'ඔබේ දුරකථනයෙන් ඕනෑ වේලාවක සටහන්, උපදෙස් සහ PDF.',
+    'tf-tag':'Miss IT සිට','tf-title':'නවතම IT උපදෙස්','tf-sub':'Miss IT ෆේස්බුක් පිටුවේ දෛනිකව බෙදාගන්නා IT ඉඟි — දැන් සංවිධිත ලෙස.',
+    'tp-1':'💡 ඉක්මන් ඉඟිය: Ctrl+Z ඔබේ හොඳම මිතුරා! ඕනෑම වැරදීමක් ක්ෂණිකව undo කරයි.',
+    'tp-2':'📂 RAM සහ ROM අතර වෙනස දන්නවාද? RAM තාවකාලික (ඔබේ මේසය), ROM ස්ථිර ගබඩාවකි (ගොනු කාබිනෙට්ටුව).',
+    'tp-3':'🔒 අන්තර්ජාල ආරක්ෂාව: ඔබේ මුරපද කිසිවිටෙක කිසිවෙකු සමඟ බෙදා නොගන්න!',
+    'tf-more':'IT උපදෙස් සියල්ල →',
+    'ab-role':'නිර්මාතෘ · Miss IT · IT අධ්‍යාපිකා',
+    'ab-p1':'Shammi, ශ්‍රී ජයවර්ධනපුර විශ්වවිද්‍යාලයෙන් BSc IT (Honours) ලබාගත් සුදුසුකම් ලත් IT අධ්‍යාපිකාවකි.',
+    'ab-p2':'සෑම සිසුවෙකුටම, ඕනෑම භාෂාවකින් IT ළඟා කිරීමේ ආශාවෙන්, Miss IT ආරම්භ කළේ සංකීර්ණ විෂය කරුණු සහ සැබෑ අවබෝධය අතර හිඩැස පිරවීමටය.',
+    'cr1':'BSc IT (Honours) — ශ්‍රී ජයවර්ධනපුර විශ්වවිද්‍යාලය','cr2':'O/L ICT (10–11 ශ්‍රේණිය) සහ කනිෂ්ඨ IT (6–9 ශ්‍රේණිය) විශේෂඥ','cr3':'ඉංග්‍රීසි හා සිංහල මාධ්‍ය දෙකෙහිම ඉගැන්වීමේ අත්දැකීම','cr4':'සමාජ මාධ්‍ය IT අධ්‍යාපිකා — දහස් ගණනක් සිසු අනුගාමිකයන්',
+    'ab-phi-tag':'ඉගැන්වීමේ දර්ශනය','ab-phi-title':'සෑම සිසුවෙකු සඳහා, සෑම භාෂාවකින් IT',
+    'ab-quote':'"මගේ සිසුන් IT විභාගයට ප්‍රවේශ වන්නේ විශ්වාසයෙන් — දැනුම පමණක් නොව, සිතීමේ, යෙදීමේ හා සාර්ථක වීමේ හැකියාවෙන්. ඉංග්‍රීසි හෝ සිංහල, Miss IT ඔබ සඳහා ඇත."',
+    'mc1h':'ගැටළුව','mc1p':'ශ්‍රී ලංකාවේ IT සම්පත් බොහෝමයක් ඉංග්‍රීසිවල පමණි, සිංහල මාධ්‍ය සිසුන් අසාධාරණ ලෙස දුෂ්කරතාවලට මුහුණ දෙයි.',
+    'mc2h':'මෙහෙවර','mc2p':'Miss IT හෝ 6–11 ශ්‍රේණිවල සෑම සිසුවෙකුටම ගුණාත්මක IT මග පෙන්වීම, විභාග සූදානම සහ ඩිජිටල් සාක්ෂරතාව ලබා දීමටය.',
+    'mc3h':'ක්‍රමය','mc3p':'සැබෑ ජීවිත නිදසුන්, සංවිධිත revision, සහ සහාය ලබාදෙන ඉගෙනුම් පරිසරයක්. නිවැරදි ආකාරයෙන් පැහැදිලි කළ විට සංකීර්ණ මාතෘකා සරල වෙයි.',
+    'cl-tag':'අද ලියාපදිංචි වන්න','cl-title':'පන්ති සහ පාඨමාලා','cl-sub':'ශ්‍රේණිය සහ කැමති මාධ්‍ය තෝරන්න. කණ්ඩායම් හා තනි සැසි.',
+    'mp-en':'ඉංග්‍රීසි මාධ්‍ය','mp-si':'සිංහල මාධ්‍ය',
+    'gt-69':'6–9 ශ්‍රේණිය','gt-ol':'O/L 10–11 ශ්‍රේණිය','gt-indi':'තනි (1-on-1) සැසි',
+    'g69-h':'පදනම් IT — 6 සිට 9 ශ්‍රේණිය','g69-p':'ශක්තිමත් පදනම් ගොඩනැගීම: computer hardware, software, internet මූලිකාංග, MS Office සහ ආරම්භක ක්‍රමලේඛ.',
+    't69-1':'Computer මූලිකාංග','t69-1d':'Hardware, software, ආදාන/ප්‍රතිදාන, මෙහෙයුම් පද්ධති',
+    't69-2':'MS Office','t69-2d':'Word, Excel, PowerPoint — ප්‍රායෝගික කුසලතා',
+    't69-3':'අන්තර්ජාලය සහ ආරක්ෂාව','t69-3d':'සැරිසැරීම, ඊමේල්, ආරක්ෂාව',
+    't69-4':'ආරම්භක ක්‍රමලේඛනය','t69-4d':'මූලික algorithms, flowcharts, ගැටළු විසඳීම',
+    'sh-d':'දිනය','sh-t':'වේලාව','sh-m':'මාධ්‍ය','sh-s':'ස්ථාන','sh-a':'ක්‍රියාව',
+    'sd-1':'සෙනසුරාදා','sd-2':'ඉරිදා',
+    'gol-h':'O/L විභාග සූදානම — 10 සහ 11 ශ්‍රේණිය','gol-p':'O/L ICT විෂය නිර්දේශය සම්පූර්ණ ආවරණය. පසු ප්‍රශ්න, ආදර්ශ පිළිතුරු.',
+    'tol-1':'දත්ත නිරූපණය','tol-1d':'සංඛ්‍යා පද්ධති, binary, hexadecimal',
+    'tol-2':'Computer ජාල','tol-2d':'LAN, WAN, අන්තර්ජාලය, ප්‍රොටෝකෝල',
+    'tol-3':'ක්‍රමලේඛනය','tol-3d':'Algorithms, pseudocode, flowcharts',
+    'tol-4':'පසු ප්‍රශ්න','tol-4d':'O/L ICT පසු ගිය ප්‍රශ්නපත්‍ර',
+    'gindi-h':'තනි (1-on-1) සැසි','gindi-p':'ඔබේ ගති, ශ්‍රේණිය සහ නිශ්චිත අවශ්‍යතාවලට ගැලපෙන පෞද්ගලික සැසි.',
+    'if-title':'තනි සැසියක් වෙන් කරන්න','if-l1':'සම්පූර්ණ නම','if-l2':'ශ්‍රේණිය','if-l3':'WhatsApp අංකය','if-l4':'කැමති මාධ්‍ය','if-l5':'මාතෘකාව / අවධානය','if-btn':'විමසුම් යවන්න',
+    'vt-tag':'නොමිලේ සම්පත්','vt-title':'IT උපදෙස් ගබඩාව','vt-sub':'Shammi ෆේස්බුක්හි බෙදාගන්නා IT ඉඟි — සංවිධිත, සෙවිය හැකි.',
+    'cb-all':'සියලු ඉඟි','cb-prog':'ක්‍රමලේඛනය','cb-hw':'Hardware','cb-net':'අන්තර්ජාල ආරක්ෂාව','cb-exam':'විභාග ඉඟි',
+    'v1h':'Algorithm යනු කුමක්ද?','v1p':'Algorithm යනු ගැටලුවක් විසඳීම සඳහා පියවරෙන් පියවර උපදෙස් — computer ට ගිනි ඉවිල් රටාවක් ලෙසය.',
+    'v2h':'RAM vs ROM','v2p':'RAM computer ධාවනය වන විට තාවකාලික දත්ත ගබඩා කරයි. ROM ස්ථිර දත්ත ගබඩා කරයි.',
+    'v3h':'ශක්තිමත් මුරපද','v3p':'8+ අක්ෂර, ලොකු/කුඩා, ඉලක්කම් සහ සංකේත. මුරපද නැවත නොකරන්න!',
+    'v4h':'ප්‍රධාන 5 Shortcuts','v4p':'Ctrl+C, Ctrl+V, Ctrl+Z, Ctrl+S, Ctrl+P — විභාගයේ නිතරම පැමිණෙයි!',
+    'v5h':'Variable යනු කුමක්ද?','v5p':'Variable යනු ක්‍රමලේඛයක අගයක් ගබඩා කරන කොටුවක්. ඕනෑ වේලාවක අගය වෙනස් කළ හැකිය.',
+    'v6h':'CPU vs GPU','v6p':'CPU computer හි මොළයයි. GPU graphics සහ දිස්ප්ලේ සඳහා විශේෂිතය.',
+    'v7h':'ප්‍රශ්න දෙවරක් කියවන්න','v7p':'ICT විභාගයේ, සෑම ප්‍රශ්නයක්ම දෙවරක් කියවන්න. බොහෝ ලකුණු නොකියවීමෙන් අහිමිවෙයි.',
+    'v8h':'Phishing ප්‍රහාර','v8p':'ඔබේ personal details හෝ password ඉල්ලන email phishing. Suspicious links ක්ලික් නොකරන්න!',
+    'v9h':'Loop යනු කුමක්ද?','v9p':'Loop උපදෙස් කිහිපයක් නැවත නැවත ක්‍රියාත්මක කරයි. 1–100 numbers 100 lines නොලියා print කරයි!',
+    'db-h':'නොමිලේ අධ්‍යයන ද්‍රව්‍ය','db-p':'PDF සාරාංශ, shortcut cheat sheets, O/L ආදර්ශ පිළිතුරු — Miss IT සිසුන්ට නොමිලේ.','db-btn':'නොමිලේ PDF බාගන්න',
+    'ct-tag':'සම්බන්ධ වන්න','ct-title':'සම්බන්ධ වීම සහ ලියාපදිංචිය','ct-sub':'නව batch ලියාපදිංචිය, තනි සැසි, හෝ සමාජ මාධ්‍ය හරහා.',
+    'rf-title':'නව සිසු ලියාපදිංචිය','rf-l1':'සිසු නම','rf-l2':'ශ්‍රේණිය','rf-l3':'දෙමාපිය සම්බන්ධතාව','rf-l4':'කැමති මාධ්‍ය','rf-l5':'පන්ති වර්ගය','rf-l6':'ඊමේල් (අවශ්‍ය නැත)','rf-l7':'පණිවිඩය','rf-btn':'දැන් ලියාපදිංචි වන්න',
+    'sc-title':'Miss IT හොයා ගන්න','map-loc':'මහනුවර, මධ්‍යම පළාත, ශ්‍රී ලංකාව','map-sub':'මාර්ගගත සහ対面 සැසි',
+    'ft-p':'ශ්‍රී ලංකාවේ 6–11 ශ්‍රේණිවල සිසුන් සඳහා ගුණාත්මක IT අධ්‍යාපනය. ඉංග්‍රීසි හා සිංහල.',
+    'ft-h1':'ඉක්මන් සබැඳි','ft-h2':'සම්බන්ධතා','ft-l1':'මුල් පිටුව','ft-l2':'Shammi ගැන','ft-l3':'පන්ති සහ පාඨමාලා','ft-l4':'IT උපදෙස් ගබඩාව','ft-l5':'ලියාපදිංචි වන්න',
+    'ft-copy':'© 2025 Miss IT · සියලු හිමිකම් ඇවිරිණි','ft-tagline':'IT අධ්‍යාපනය හරහා සිසුන් සවිබල ගන්වමු',
+    'toast-msg':'ලියාපදිංචිය සාර්ථකයි! ඉක්මනින් සම්බන්ධ වෙමු.'
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const d = T[lang];
+  Object.keys(d).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = d[id];
+  });
+}
+
+function showPage(name) {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).style.display = '';
+  document.getElementById('page-' + name).classList.add('active');
+  const nl = document.getElementById('nl-' + name);
+  if (nl) nl.classList.add('active');
+  setupFadeUps();
+}
+
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+function setGrade(grade, btn) {
+  document.querySelectorAll('.grade-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.grade-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + grade).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function setMedium(m, btn) {
+  document.querySelectorAll('.med-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function filterVault(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.vault-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+function submitForm(btn) {
+  btn.textContent = T[currentLang]['toast-msg'] ? '✓ Submitted!' : '✓ යවන ලදී!';
+  btn.style.background = '#059669';
+  const toast = document.getElementById('toast');
+  const msg = document.getElementById('toast-msg');
+  const d = T[currentLang];
+  msg.textContent = d['toast-msg'] || 'Submitted successfully!';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+  setTimeout(() => { btn.textContent = T[currentLang][btn.id] || btn.textContent; btn.style.background = ''; }, 3000);
+}
+
+function setupFadeUps() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => { el.classList.remove('visible'); obs.observe(el); });
+}
+
+document.addEventListener('DOMContentLoaded', setupFadeUps);
+</script>
+</body>
+</html>
