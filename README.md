@@ -1,2 +1,2 @@
-# missit
-This is a portfolio website for Miss IT 
+# micromindlab
+This is a portfolio website for MicroMind Lab
